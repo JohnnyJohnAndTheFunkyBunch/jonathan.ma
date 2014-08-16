@@ -1,0 +1,222 @@
+<!-- -*- mode:javascript -*--->
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Jonathan Ma | www.majonathan.com</title>
+  <meta name="Description" content="This is demonstration of JQuery Terminal Emulator Plugin. To run terminal type tilda on you keyboard."/>
+  <script src="jquery.terminal/js/jquery-1.7.1.min.js"></script>
+  <script src="jquery.terminal/js/jquery.mousewheel-min.js"></script>
+  <script src="jquery.terminal/js/jquery.terminal-min.js"></script>
+  <script src="myfiles.js"></script>
+  <link href="terminal.css" rel="stylesheet"/>
+<!--[if IE]>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+}
+.tilda {
+    position: absolute;
+}
+</style>
+<script>
+jQuery(document).ready(function($) {
+   $(window).scroll(function() {
+      $('.tilda').each(function() {
+         $(this).css({top: $('body').prop('scrollTop')});
+      });
+   });
+});
+</script>
+<![endif]-->
+<script>
+
+
+String.prototype.strip = function(char) {
+    return this.replace(new RegExp("^" + char + "*"), '').
+        replace(new RegExp(char + "*$"), '');
+}
+
+
+$.extend_if_has = function(desc, source, array) {
+    for (var i=array.length;i--;) {
+        if (typeof source[array[i]] != 'undefined') {
+            desc[array[i]] = source[array[i]];
+        }
+    }
+    return desc;
+};
+
+
+(function($) {
+    $.fn.tilda = function(eval, options) {
+        if ($('body').data('tilda')) {
+            return $('body').data('tilda').terminal;
+        }
+        this.addClass('tilda');
+        options = options || {};
+        eval = eval || function(command, term) {
+            term.echo("you don't set eval for tilda");
+        };
+        var settings = {
+            prompt: '[[b;lawngreen;black]jonathan.ma:/~] ',
+            name: 'majonathan.com',
+            height: window.innerHeight - 100,
+            enabled: false,
+            completion: function(term, string,callback) {
+                callback(['welcome.txt',
+                             'Projects',
+                             'AboutMe',
+                             ]);},
+            tabcompletion: true,
+            greetings: welcome_txt.text,
+            keypress: function(e) {
+                if (e.which == 96) {
+                    return false;
+                }
+            }
+        };
+        if (options) {
+            $.extend(settings, options);
+        }
+        this.append('<div class="td"></div>');
+        var self = this;
+        self.terminal = this.find('.td').terminal(eval, settings);
+        var focus = false;
+        $(document.documentElement).keypress(function(e) {
+            if (e.which == 96) {
+                self.slideToggle('fast');
+                self.terminal.focus(focus = !focus);
+                self.terminal.attr({
+                    scrollTop: self.terminal.attr("scrollHeight")
+                });
+            }
+        });
+        $(document.documentElement).click(function() {
+            self.slideToggle('fast');
+            self.terminal.focus(focus = !focus);
+            self.terminal.attr({
+                scrollTop: self.terminal.attr("scrollHeight")
+            });
+        });
+        $('body').data('tilda', this);
+        this.hide();
+        return self;
+    };
+})(jQuery);
+
+function main(command, terminal) {
+    var tokens = command.split(" ");
+    if (tokens[0] == "ls") {
+        for (var i = 0 ; i < curr.kids.length ; i++){
+            if (curr.kids[i].type == "folder") {
+                terminal.echo('[[b;aqua;black]'+ curr.kids[i].name +']');
+            }
+            else if (curr.kids[i].type == "pdf" || 
+            curr.kids[i].type == "pic") {
+                terminal.echo('[[;purple;black]'+ curr.kids[i].name +']');
+            }
+            else if (curr.kids[i].type == "txt") {
+                terminal.echo(curr.kids[i].name);
+            }
+        }
+    }
+    else if (tokens[0] == "cat") {
+        var found = false;
+        if (tokens.length > 1) {
+            for (var i = 0 ; i < curr.kids.length ; i++) {
+                if (curr.kids[i].type == "txt" && 
+               curr.kids[i].name == tokens[1]){
+                   terminal.echo(curr.kids[i].text);
+                   found = true;
+                   break;
+               }
+           } 
+           if (!found) {
+               terminal.echo('cat: ' + tokens[1] +': No such file');
+           }
+       }
+   }
+   else if (tokens[0] == "cd") {
+       if (tokens.length > 1) {
+           if (tokens[1] == "~"){
+               curr = home;
+               prev = home;
+               terminal.push(main, curr.setg);
+           }
+           else if (tokens[1] == "..") {
+               if (curr != home)
+               {
+                   curr = curr.back;
+                   terminal.pop();
+               }
+           }
+           else {
+
+                for (var i = 0 ; i < curr.kids.length ; i++) {
+                    if (curr.kids[i].type == "folder" && 
+                    curr.kids[i].name == tokens[1]){
+                       curr = curr.kids[i];
+                       found = true;
+                       break;
+                   }
+               }
+               if (!found) {
+                   terminal.echo('cd : ' + tokens[1] +': No such directory');
+               } 
+               else {
+                   terminal.push(main, curr.setg);
+               }
+          }
+       }
+   }
+   else if(tokens[0] == "open") {
+        var found = false;
+        if (tokens.length > 1) {
+            for (var i = 0 ; i < curr.kids.length ; i++) {
+                if (curr.kids[i].type == "pdf" && 
+               curr.kids[i].name == tokens[1]){
+                   window.open(curr.kids[i].link);
+                   found = true;
+                   break;
+               }
+               else if (curr.kids[i].type == "pic" && 
+               curr.kids[i].name == tokens[1]) {
+                   changeImage(curr.kids[i].link);
+                   found = true;
+                   break;
+               }
+           } 
+           if (!found) {
+               terminal.echo('open: ' + tokens[1] +': No such file');
+           }
+       }
+   }
+
+
+    else{
+        terminal.echo(command + ': command not found');
+    }
+
+}
+
+//--------------------------------------------------------------------------
+var curr = home;
+var prev = home;
+
+jQuery(document).ready(function($) {
+    $('#tilda').tilda(main);
+});
+
+</script>
+</head>
+<body>
+    <div id="tilda"></div>
+    <h1>Press ` to open terminal or Click Anywhere</h1>
+	<div id="wrapper" style="width:100%; text-align:center">
+	<img id="img" src='welcome.png' width="1000"/>
+	</div>
+
+</body>
+</html>
