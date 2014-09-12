@@ -19,8 +19,10 @@ var summary_txt =
               "My specialties and interest include:\n"+
               "[[b;deeppink;black]Unix Network Programming, Concurrency, Data Structure] (C++ STL)" +
               "\n\n"+
-              "When not at work, I enjoy Web Development. Currently I am working in multiple projects, but I am more focused on developing a video streaming website. I am developing a video streaming website in hopes of gaining experience with high traffic while maintaining high availability of my web servers to not hinder user experience."+
-              "Using EC2, S3, RDS, CloudFront and other products from [[b;aqua;black]Amazon Web Services], I am able to develop a auto-scaling website and distribute media content accross the nodes in US to increase user experience. I develop mostly in:\n\n" +
+              "When not at work, I enjoy writing concurrent programs in [[b;aqua;black]Golang] like WebSocket servers or any kind of servers. I enjoy developing low latency web applications and creating unique user experiences." +
+              "\n\n"+
+              "I enjoy Web Development with frameworks like Django. Currently I am working in multiple projects, but I am more focused on developing a video streaming website. I chose this project in hopes of gaining experience with high traffic while maintaining high availability of my web servers to not hinder user experience."+
+              "Using EC2, S3, RDS, CloudFront and other products from [[b;aqua;black]Amazon Web Services], I am able to develop a auto-scaling website and distribute media content across the nodes in US to increase user experience. I develop mostly in:\n\n" +
               "Front End     : [[b;aqua;black]HTML/CSS/Javascript(JQuery)]\n"+
               "Back End      : [[b;aqua;black]PhP, Python(Django)]\n"+
               "WebServer/WCGI: [[b;aqua;black]Nginx, Green Unicorn]"+
@@ -197,22 +199,36 @@ var art =
 
 var predictious =
     {
-        name: "Predictious_Bot.git",
+        name: "predictious-bot.git",
         type: "pdf",
-        link: "https://github.com/JohnnyJohnAndTheFunkyBunch/ProjectP"
+        link: "https://github.com/JohnnyJohnAndTheFunkyBunch/predictious-bot"
+    };
+var websocket =
+    {
+        name: "simplewebsocket.git",
+        type: "pdf",
+        link: "https://github.com/JohnnyJohnAndTheFunkyBunch/simplewebsocket"
+    };
+var vixnx =
+    {
+        name: "vixnx.txt",
+        type: "txt",
+        text: "http://vixnx.com (Not safe for work, contains adult content)"
     };
 
 var coding = 
     {
         name: "Coding",
         type: "folder",
-        kids: [predictious],
+        kids: [predictious, websocket, vixnx],
         back: projects,
         setg: { prompt: '[[b;lawngreen;black]jonathan.ma:/Projects/Coding~] ',
                 name:   'jonathan.ma',
                 completion: function(term, string, callback) {
                     callback([
-                            'Predictious_Bot.git'
+                            'vixnx.txt',
+                            'simplewebsocket.git',
+                            'predictious-bot.git'
                               ]);},
               }
     };
