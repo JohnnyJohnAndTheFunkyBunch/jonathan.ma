@@ -101,8 +101,6 @@ var resume_txt =
 \nCompetitions and Personal Projects\
 \n**********************************\
 \n\
-\n    VixnX - http://www.vixnx.com (NSFW)\
-\n\
 \n    Predictious Trading Bot - https://www.predictious.com/ \
 \n\
 \n    Rotman International Trading Competition\
@@ -209,24 +207,17 @@ var websocket =
         type: "pdf",
         link: "https://github.com/JohnnyJohnAndTheFunkyBunch/simplewebsocket"
     };
-var vixnx =
-    {
-        name: "vixnx.txt",
-        type: "txt",
-        text: "http://vixnx.com (Not safe for work, contains adult content)"
-    };
 
 var coding = 
     {
         name: "Coding",
         type: "folder",
-        kids: [predictious, websocket, vixnx],
+        kids: [predictious, websocket],
         back: projects,
         setg: { prompt: '[[b;lawngreen;black]jonathan.ma:/Projects/Coding~] ',
                 name:   'jonathan.ma',
                 completion: function(term, string, callback) {
                     callback([
-                            'vixnx.txt',
                             'simplewebsocket.git',
                             'predictious-bot.git'
                               ]);},
