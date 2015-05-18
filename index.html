@@ -1,15 +1,22 @@
-<!-- -*- mode:javascript -*--->
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link href="style.css" rel="stylesheet"/>
+<meta name="keywords" content="jonathan ma, software engineer, project manager, data science, university of waterloo, citadel, linkedin">
   <meta charset="utf-8" />
   <title>Jonathan Ma | www.jonathan.ma</title>
   <meta name="Description" content="Jonathan Ma's personal website"/>
-  <script src="jquery.terminal/js/jquery-1.7.1.min.js"></script>
-  <script src="jquery.terminal/js/jquery.mousewheel-min.js"></script>
-  <script src="jquery.terminal/js/jquery.terminal-min.js"></script>
-  <script src="myfiles.js"></script>
-  <link href="terminal.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="dev/jquery.terminal/js/jquery-1.7.1.min.js"></script>
+  <script src="dev/jquery.terminal/js/jquery.mousewheel-min.js"></script>
+  <script src="dev/jquery.terminal/js/jquery.terminal-min.js"></script>
+  <script src="dev/myfiles.js"></script>
+  <link href="dev/terminal.css" rel="stylesheet"/>
+  <link href='http://fonts.googleapis.com/css?family=Mandali' rel='stylesheet' type='text/css'>
+  <link href="http://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:300,400,600,700,800|Gentium+Book+Basic:400,400italic|Vollkorn:400italic,400" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Gravitas+One|Lato:100,900|Old+Standard+TT:400,400italic|PT+Serif:400|PT+Sans+Narrow:700' rel='stylesheet' type='text/css'>
 <!--[if IE]>
 <style>
 body {
@@ -67,6 +74,7 @@ $.extend_if_has = function(desc, source, array) {
             completion: function(term, string,callback) {
                 callback(['welcome.txt',
                              'Projects',
+                             'Blog',
                              'AboutMe',
                              ]);},
             tabcompletion: true,
@@ -92,13 +100,6 @@ $.extend_if_has = function(desc, source, array) {
                     scrollTop: self.terminal.attr("scrollHeight")
                 });
             }
-        });
-        $(document.documentElement).click(function() {
-            self.slideToggle('fast');
-            self.terminal.focus(focus = !focus);
-            self.terminal.attr({
-                scrollTop: self.terminal.attr("scrollHeight")
-            });
         });
         $('body').data('tilda', this);
         this.hide();
@@ -212,11 +213,69 @@ jQuery(document).ready(function($) {
 </script>
 </head>
 <body>
-    <div id="tilda"></div>
-    <h1>Press ` to open terminal or Click Anywhere</h1>
-	<div id="wrapper" style="width:100%; text-align:center">
-	<img id="img" src='welcome.png' width="1000"/>
-	</div>
-
+  <div id="tilda"></div>
+  <section class="sample" id="camus">
+  <div id="content">
+    <section class="text">
+        <h1>Jonathan Ma's Website</h1>
+        <hr>
+        <h2>A look into software, data science and management</h2>
+        <hr class="bottom">
+        <p>WATERLOO, <span id="date">Jan. 6</span>&mdash;Jonathan Ma, a student of University of Waterloo in Computer Science and Statistics minoring in Economics, is looking for opportunities to diversify his skillset. He is interested in developing a wide range of skills in diverse fields that would complement each other in unexpected ways. So he ingrained this idea to his lifestyle, and created a goal to learning one new thing well every trimester.</p>
+        <p>Currently he is an experienced C++ systems developer who mostly worked on infrastructure and distributed systems during his internships at Citadel and LinkedIn. He has knowledge in quantitative trading especially in Options Market Making.</p>
+        <p id="click">For developers, please press ` on this page to open a terminal to navigate this website. If not or you're on mobile, click this paragraph and scroll down.</p>
+    </section>
+  </div>
+  </section>
+  <section class="sample" id="headline">
+    <div id="content">
+    <section class="text">
+      <a href="http://www.google.com/webfonts/specimen/Abril+Fatface" title="Abril Fatface">
+        <h1>Resume</h1>
+      </a>
+    </section>
+    <a href=""><img src="images/resume.png"></img></a>
+    </div>>
+  </section>
+  <section class="sample" id="work">
+    <div id="content">
+    <h1>Work</h1>
+    <hr noshade>
+    <img class="logo" src="images/linkedin_logo.png"></img>
+    <h2>LinkedIn</h2>
+    <h3>Software Engineer - Graph Team</h3>
+    <img class="logo" src="images/citadel_logo.png"></img>
+    <h2>Citadel</h2>
+    <h3>Financial Technology Associate - Options Team</h3>
+    <img class="logo" src="images/scotia_logo.png"></img>
+    <h2>Scotiabank</h2>
+    <h3>Financial Engineer - Credit and Equity Derivatives</h3>
+    </div>
+  </section>
 </body>
+<script>
+  var today = new Date();
+  var month = new Array();
+  month[0] = "Jan";
+  month[1] = "Feb";
+  month[2] = "Mar";
+  month[3] = "Apr";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "Aug";
+  month[8] = "Sep";
+  month[9] = "Oct";
+  month[10] = "Nov";
+  month[11] = "Dec";
+  var n = month[today.getMonth()];
+   document.getElementById("date").innerHTML= n+". " + today.getDate(); 
+ var wtv = function () {
+  var x = document.getElementsByClassName("sample");
+  for (var i = 0; i < x.length ; i++) {
+    x[i].style.display = 'block';
+  }
+ } 
+ document.getElementById("click").onclick=wtv;
+</script>
 </html>
