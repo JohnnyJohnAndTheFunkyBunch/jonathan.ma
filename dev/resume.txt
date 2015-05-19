@@ -1,0 +1,44 @@
+********************************************************************************
+                                  Jonathan Ma
+jonathan.ma@uwaterloo.ca                                            226.978.3108
+
+3B Honours Mathematics - Computer Science Major, Statistics Major, Econ Minor
+********************************************************************************
+
+   Technical Skills: C/C++, Python, Unix/Linux, Bash, Excel VBA, LaTex
+   Web & Design    : HTML/CSS, PHP/MySQL, Adobe Photoshop, Adobe Premiere Pro
+
+
+***************
+Work Experience
+***************
+   ___________________________________________________________________________
+   Citadel
+   Financial Technology Summer Associate - Option IT
+      - Wrote tools for high frequency trading
+   ___________________________________________________________________________
+   Scotia Capital
+   Financial Engineer - Credit & Equity Derivatives
+      - Developed and improved option modelling tools for equity
+        derivatives traders in C++ and VBA
+
+**********************************
+Competitions and Personal Projects
+**********************************
+
+    Predictious Trading Bot
+
+    2D SDL Game
+
+    Rotman International Trading Competition
+
+    Smash Player Database
+
+    CRC Robotics Competition
+
+*********
+Education
+*********
+
+   University of Waterloo
+      - Dean's Honours List: 93% Average
